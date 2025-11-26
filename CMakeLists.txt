@@ -41,9 +41,9 @@ set(cpu_PARAMS
 )
 
 # Sources
-set(sources_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/Src/main.c
-)
+# set(sources_SRCS
+# 	${CMAKE_CURRENT_SOURCE_DIR}/Src/main.c
+# )
 
 # Include directories for all compilers
 set(include_DIRS
@@ -53,7 +53,9 @@ set(include_DIRS
 # Include directories for each compiler
 set(include_c_DIRS)
 set(include_cxx_DIRS)
-set(include_asm_DIRS)
+set(include_asm_DIRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/Inc   # ensure assembler sees stm32f10x.s
+)
 
 # Symbols definition for all compilers
 set(symbols_SYMB)

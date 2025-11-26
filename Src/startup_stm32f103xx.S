@@ -25,6 +25,8 @@
 .fpu softvfp
 .thumb
 
+.include "stm32f10x.s"
+
 .global g_pfnVectors
 .global Default_Handler
 
@@ -55,47 +57,24 @@ defined in linker script */
 Reset_Handler:
   ldr   r0, =_estack
   mov   sp, r0          /* set stack pointer */
-/* Call the clock system initialization function.*/
-  bl  SystemInit
 
-/* Copy the data segment initializers from flash to SRAM */
-  ldr r0, =_sdata
-  ldr r1, =_edata
-  ldr r2, =_sidata
-  movs r3, #0
-  b LoopCopyDataInit
+  /* Тактирование порта А */
+  ldr	r0, =PERIPH_BB_BASE + (RCC_APB2ENR - PERIPH_BASE)*32 + 2*4
+  mov	r1, #1
+  str 	r1, [r0]
 
-CopyDataInit:
-  ldr r4, [r2, r3]
-  str r4, [r0, r3]
-  adds r3, r3, #4
+  ldr  r0, =GPIOA_CRL
+  ldr  r1, [r0]
+  mov  r2, #3
+  bfi  r1, r2, #20, #4
+  str  r1, [r0]
 
-LoopCopyDataInit:
-  adds r4, r0, r3
-  cmp r4, r1
-  bcc CopyDataInit
+  ldr  r0, =GPIOA_BSRR
+  ldr  r1, =GPIO_BSRR_BS5
+  str  r1, [r0]
 
-/* Zero fill the bss segment. */
-  ldr r2, =_sbss
-  ldr r4, =_ebss
-  movs r3, #0
-  b LoopFillZerobss
-
-FillZerobss:
-  str  r3, [r2]
-  adds r2, r2, #4
-
-LoopFillZerobss:
-  cmp r2, r4
-  bcc FillZerobss
-
-/* Call static constructors */
-  bl __libc_init_array
-/* Call the application's entry point.*/
-  bl main
-
-LoopForever:
-  b LoopForever
+main:
+  b  main
 
   .size Reset_Handler, .-Reset_Handler
 
