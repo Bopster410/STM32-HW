@@ -63,18 +63,42 @@ Reset_Handler:
   mov	r1, #1
   str 	r1, [r0]
 
-  ldr  r0, =GPIOA_CRL
-  ldr  r1, [r0]
-  mov  r2, #3
-  bfi  r1, r2, #20, #4
-  str  r1, [r0]
+  ldr  	r0, =GPIOA_CRL
+  ldr  	r1, [r0]
+  mov  	r2, #3
+  bfi  	r1, r2, #20, #4
+  str  	r1, [r0]
 
-  ldr  r0, =GPIOA_BSRR
-  ldr  r1, =GPIO_BSRR_BS5
-  str  r1, [r0]
+  ldr	r0, =ADC1_DR
+  .equ	EDGE_VALUE, 0x20000100
+  ldr	r2, =EDGE_VALUE
 
 main:
-  b  main
+  ldr	r1, [r0]
+  ldr	r3, [r2]
+
+  push	{r0, r1}
+  cmp	r1, r3
+  it	GT
+  blgt 	led_on
+  it	LT
+  bllt	led_off
+  pop	{r0, r1}
+
+  b  	main
+
+led_on:
+  ldr  	r0, =GPIOA_BSRR
+  ldr  	r1, =GPIO_BSRR_BS5
+  str  	r1, [r0]
+  bx   	lr
+
+led_off:
+  ldr  	r0, =GPIOA_BSRR
+  ldr  	r1, =GPIO_BSRR_BR5
+  str  	r1, [r0]
+  bx   	lr
+
 
   .size Reset_Handler, .-Reset_Handler
 
