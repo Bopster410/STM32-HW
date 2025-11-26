@@ -1,32 +1,30 @@
 {
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "type": "cmake",
-      "label": "CMake: сборка",
-      "command": "build",
-      "targets": [
-        "all"
-      ],
-      "preset": "Debug",
-      "group": "build",
-      "problemMatcher": [],
-      "detail": "Задача шаблона CMake сборка"
-    },
-    {
-      "type": "cmake",
-      "label": "CMake: очистить",
-      "command": "clean",
-      "preset": "Debug",
-      "problemMatcher": [],
-      "detail": "Задача шаблона CMake очистить"
-    },
-    {
-      "label": "Flash STM32",
-      "type": "shell",
-      "command": "arm-none-eabi-objcopy -O binary $PWD/build/Debug/HW_2.elf $PWD/build/Debug/HW_2.bin; STM32_Programmer_CLI.exe -c port=SWD -w $PWD/build/Debug/HW_2.bin 0x08000000",
-      "group": "build",
-      "problemMatcher": []
-    }
-  ]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "cmake",
+            "label": "CMake: сборка",
+            "command": "build",
+            "targets": ["all"],
+            "preset": "Debug",
+            "group": "build",
+            "problemMatcher": [],
+            "detail": "Задача шаблона CMake сборка"
+        },
+        {
+            "type": "cmake",
+            "label": "CMake: очистить",
+            "command": "clean",
+            "preset": "Debug",
+            "problemMatcher": [],
+            "detail": "Задача шаблона CMake очистить"
+        },
+        {
+            "label": "Flash STM32",
+            "type": "shell",
+            "command": "arm-none-eabi-objcopy -O binary $PWD/build/Debug/HW_2.elf $PWD/build/Debug/HW_2.bin; STM32_Programmer_CLI.exe -c port=SWD -w $PWD/build/Debug/HW_2.bin 0x08000000",
+            "group": "build",
+            "problemMatcher": []
+        }
+    ]
 }
