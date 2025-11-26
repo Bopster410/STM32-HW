@@ -22,7 +22,7 @@
         {
             "label": "Flash STM32",
             "type": "shell",
-            "command": "arm-none-eabi-objcopy -O binary $PWD/build/Debug/HW_2.elf $PWD/build/Debug/HW_2.bin; STM32_Programmer_CLI.exe -c port=SWD -w $PWD/build/Debug/HW_2.bin 0x08000000",
+            "command": "arm-none-eabi-objcopy -O binary $PWD/build/Debug/pms-hw.elf $PWD/build/Debug/pms-hw.bin; STM32_Programmer_CLI.exe -c port=SWD -w $PWD/build/Debug/pms-hw.bin 0x08000000",
             "group": "build",
             "problemMatcher": []
         }
