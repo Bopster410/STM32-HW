@@ -74,7 +74,6 @@ void execute_command(void)
   {
       int degree = -1;
 
-      // Считываем одну цифру после "SET "
       sscanf(RxBuffer, "SERVO %d", &degree);
       if (degree >= 0 && degree <= 180) {
           rotate_servo(degree);
@@ -90,6 +89,6 @@ void execute_command(void)
 
   usart2_transmit(TxBuffer);
 
-  memset(RxBuffer, 0, sizeof(RxBuffer)); //записываем, в какой участок памяти записать опр. байты (нули) и какого размера
+  memset(RxBuffer, 0, sizeof(RxBuffer));
   CommandReceived = false;
 }
