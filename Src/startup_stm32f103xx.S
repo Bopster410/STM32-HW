@@ -58,7 +58,7 @@ Reset_Handler:
   ldr   r0, =_estack
   mov   sp, r0          /* set stack pointer */
 
-  /* Тактирование порта А */
+  /* Тактирование порта C */
   ldr	r0, =PERIPH_BB_BASE + (RCC_APB2ENR - PERIPH_BASE)*32 + 4*4
   mov	r1, #1
   str 	r1, [r0]
