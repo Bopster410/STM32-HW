@@ -73,7 +73,7 @@ Reset_Handler:
   .equ	EDGE_VALUE, 0x20000100
   ldr	r2, =EDGE_VALUE
 
-  .equ	PULSE_DURATION, 100
+  .equ	PULSE_DURATION, 16
 
 main:
   ldr	r1, [r0]
